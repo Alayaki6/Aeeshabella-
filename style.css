@@ -1,975 +1,291 @@
-:root {
-  --night: #120b10;
-  --night-2: #1b1018;
-  --night-3: #291520;
-  --cream: #f8eee7;
-  --soft: #d9c7c0;
-  --muted: #a99799;
-  --gold: #d9b879;
-  --rose: #c98798;
-  --rose-light: #e7adb9;
-  --white: #fffaf7;
-  --serif: "Cormorant Garamond", serif;
-  --sans: "DM Sans", sans-serif;
-}
-/* ================================
-   RESET
-================================ */
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-html,
-body {
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-  overscroll-behavior: none;
-}
-body {
-  background: var(--night);
-  color: var(--cream);
-  font-family: var(--sans);
-  -webkit-font-smoothing: antialiased;
-  -webkit-tap-highlight-color: transparent;
-}
-/* ================================
-   EXPERIENCE
-================================ */
-.experience {
-  position: relative;
-  width: 100%;
-  height: 100dvh;
-  overflow: hidden;
-}
-/* ================================
-   SCENES
-================================ */
-.scene {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 25px 20px 40px;
-  overflow: hidden;
-  opacity: 0;
-  visibility: hidden;
-  transform:
-    scale(1.055)
-    translateY(12px);
-  filter: blur(7px);
-  transition:
-    opacity 0.75s ease,
-    visibility 0.75s ease,
-    transform 1s cubic-bezier(.22, 1, .36, 1),
-    filter 0.8s ease;
-}
-.scene.active {
-  opacity: 1;
-  visibility: visible;
-  transform:
-    scale(1)
-    translateY(0);
-  filter: blur(0);
-}
-.scene::before {
+/* =====================================================
+   AEESHA — FINAL WOW MOMENT
+===================================================== */
+
+.final-scene::before {
   content: "";
   position: absolute;
-  inset: -20%;
+  inset: 0;
   background:
     radial-gradient(
-      circle at 50% 30%,
-      rgba(201, 135, 152, 0.13),
-      transparent 30%
+      circle at 50% 42%,
+      rgba(217, 184, 121, 0.12),
+      transparent 28%
     ),
     radial-gradient(
-      circle at 15% 90%,
-      rgba(217, 184, 121, 0.07),
-      transparent 25%
+      circle at 20% 20%,
+      rgba(201, 135, 152, 0.08),
+      transparent 30%
     );
   pointer-events: none;
 }
-.scene::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background:
-    linear-gradient(
-      120deg,
-      transparent 20%,
-      rgba(255,255,255,0.018) 50%,
-      transparent 80%
-    );
-  pointer-events: none;
-}
-/* ================================
-   CONTENT
-================================ */
-.content {
-  position: relative;
-  z-index: 5;
-  width: min(100%, 430px);
-  text-align: center;
-}
-/* ================================
-   TYPOGRAPHY
-================================ */
-.eyebrow {
-  margin-bottom: 17px;
-  color: var(--gold);
-  font-size: 8px;
-  font-weight: 600;
-  letter-spacing: 0.32em;
-}
-h1,
-h2 {
-  font-family: var(--serif);
-  font-weight: 500;
-  line-height: 0.94;
-}
-h1 {
-  font-size: clamp(57px, 16vw, 88px);
-}
-h1 span,
-h2 span {
-  display: block;
-  color: var(--rose-light);
-  font-style: italic;
-}
-.intro,
-.description,
-.final-text {
-  color: var(--muted);
-  font-size: 12px;
-  line-height: 1.7;
-}
-/* ================================
-   COUNTER
-================================ */
-.counter {
-  position: absolute;
-  left: 50%;
-  bottom: 17px;
-  z-index: 15;
-  transform: translateX(-50%);
-  color: rgba(248, 238, 231, 0.34);
-  font-size: 8px;
-  letter-spacing: 0.22em;
-}
-.counter i {
-  margin: 0 5px;
-  color: var(--gold);
-  font-style: normal;
-}
-/* ================================
-   PARTICLES
-================================ */
-.particles {
-  position: fixed;
-  inset: 0;
-  z-index: 3;
-  overflow: hidden;
-  pointer-events: none;
-}
-.particle {
-  position: absolute;
-  bottom: -10px;
-  border-radius: 50%;
-  background: rgba(255,255,255,0.7);
+
+.final-orb {
+  width: 8px !important;
+  height: 8px !important;
+  background: #f8eee7 !important;
   box-shadow:
-    0 0 8px rgba(255,255,255,0.18);
-  animation: particleRise linear infinite;
+    0 0 10px rgba(248, 238, 231, 0.9),
+    0 0 35px rgba(217, 184, 121, 0.65),
+    0 0 90px rgba(201, 135, 152, 0.35) !important;
+  animation: finalPulse 3s ease-in-out infinite !important;
 }
-@keyframes particleRise {
-  0% {
-    transform:
-      translate3d(0, 0, 0)
-      scale(0.3);
-    opacity: 0;
-  }
-  15% {
-    opacity: 0.7;
-  }
-  75% {
-    opacity: 0.35;
-  }
-  100% {
-    transform:
-      translate3d(0, -110vh, 0)
-      scale(1.4);
-    opacity: 0;
-  }
+
+.final-content {
+  z-index: 5;
 }
-/* ================================
-   OPENING
-================================ */
-.opening-content {
-  margin-top: -5px;
-}
-.scene-glow {
-  position: absolute;
-  width: 280px;
-  height: 280px;
-  border-radius: 50%;
-  background:
-    radial-gradient(
-      circle,
-      rgba(201,135,152,0.17),
-      transparent 68%
-    );
-  filter: blur(25px);
-  animation: breathe 5s ease-in-out infinite;
-}
-@keyframes breathe {
-  0%,
-  100% {
-    transform: scale(0.85);
-    opacity: 0.45;
-  }
-  50% {
-    transform: scale(1.15);
-    opacity: 1;
-  }
-}
-.tiny-star {
-  margin-bottom: 15px;
-  color: var(--gold);
-  font-size: 18px;
-  animation: starPulse 2.2s ease-in-out infinite;
-}
-@keyframes starPulse {
-  0%,
-  100% {
-    opacity: 0.3;
-    transform: scale(0.8);
-  }
-  50% {
-    opacity: 1;
-    transform: scale(1.18);
-  }
-}
-.opening-content .intro {
-  margin-top: 21px;
-}
-/* ================================
-   ENVELOPE
-================================ */
-.envelope-wrap {
-  height: 105px;
-  margin: 25px auto 20px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.envelope {
-  position: relative;
-  width: 150px;
-  height: 90px;
-  border-radius: 6px;
-  filter:
-    drop-shadow(
-      0 25px 35px rgba(0,0,0,0.4)
-    );
+
+.final-star {
   animation:
-    envelopeFloat
-    4s
-    ease-in-out
-    infinite;
+    finalStarFloat 3s ease-in-out infinite,
+    finalStarGlow 2.5s ease-in-out infinite alternate !important;
 }
-@keyframes envelopeFloat {
-  0%,
-  100% {
-    transform:
-      translateY(0)
-      rotate(-1deg);
-  }
-  50% {
-    transform:
-      translateY(-8px)
-      rotate(1deg);
-  }
+
+.final-content h2 {
+  animation: finalTextReveal 1.2s ease both;
 }
-.envelope-front {
-  position: absolute;
-  inset: 0;
-  z-index: 2;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-  border:
-    1px solid
-    rgba(217,184,121,0.3);
-  border-radius: 6px;
-  background:
-    linear-gradient(
-      145deg,
-      #603542,
-      #2f1923
-    );
+
+.final-content h2 span {
+  background: linear-gradient(
+    120deg,
+    #d9b879,
+    #f8eee7,
+    #c98798,
+    #d9b879
+  );
+  background-size: 300% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: goldShimmer 5s linear infinite;
 }
-.envelope-front::before,
-.envelope-front::after {
-  content: "";
-  position: absolute;
-  width: 110px;
-  height: 1px;
-  background:
-    rgba(217,184,121,0.2);
+
+.cake {
+  animation:
+    cakeFloat 3s ease-in-out infinite,
+    cakeGlow 2s ease-in-out infinite alternate !important;
 }
-.envelope-front::before {
-  transform: rotate(31deg);
+
+.final-text {
+  animation: finalTextReveal 1.5s ease 0.25s both;
 }
-.envelope-front::after {
-  transform: rotate(-31deg);
-}
-.envelope-front span {
+
+.celebrate-btn {
   position: relative;
-  z-index: 3;
-  color: var(--gold);
-  font-family: var(--serif);
-  font-size: 36px;
+  overflow: hidden;
+  box-shadow:
+    0 0 0 rgba(217, 184, 121, 0),
+    0 8px 30px rgba(0, 0, 0, 0.25);
+  animation: buttonFloat 3s ease-in-out infinite;
 }
-.envelope-flap {
+
+.celebrate-btn::before {
+  content: "";
   position: absolute;
   top: 0;
-  left: 0;
-  width: 100%;
-  height: 63px;
-  z-index: 4;
-  background:
-    linear-gradient(
-      145deg,
-      #704052,
-      #482531
-    );
-  clip-path:
-    polygon(
-      0 0,
-      100% 0,
-      50% 100%
-    );
-  border-bottom:
-    1px solid
-    rgba(217,184,121,0.35);
-  transform-origin: top center;
-  transition:
-    transform 0.8s
-    cubic-bezier(.22,1,.36,1);
-}
-/* ================================
-   BUTTON
-================================ */
-.primary-btn {
-  min-width: 180px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 18px;
-  padding: 14px 20px;
-  border:
-    1px solid
-    rgba(217,184,121,0.35);
-  border-radius: 999px;
-  background:
-    rgba(255,255,255,0.025);
-  color: var(--cream);
-  font-size: 10px;
-  letter-spacing: 0.06em;
-  cursor: pointer;
-  transition:
-    transform 0.25s ease,
-    background 0.3s ease,
-    border-color 0.3s ease,
-    box-shadow 0.3s ease;
-}
-.primary-btn b {
-  color: var(--gold);
-  font-size: 17px;
-  font-weight: 400;
-}
-.primary-btn:active {
-  transform: scale(0.95);
-}
-.primary-btn:hover {
-  background:
-    rgba(217,184,121,0.08);
-  border-color:
-    rgba(217,184,121,0.7);
-  box-shadow:
-    0 0 25px
-    rgba(217,184,121,0.08);
-}
-/* ================================
-   REVEAL
-================================ */
-.reveal-content {
-  margin-top: -10px;
-}
-.number {
-  margin-bottom: 16px;
-  color: transparent;
-  font-family: var(--serif);
-  font-size:
-    clamp(125px, 37vw, 190px);
-  line-height: 0.67;
-  -webkit-text-stroke:
-    1px
-    rgba(217,184,121,0.52);
-  text-shadow:
-    0 0 45px
-    rgba(217,184,121,0.08);
-}
-.reveal-content h2 {
-  font-size:
-    clamp(43px, 11vw, 63px);
-}
-.gold-line {
-  width: 44px;
-  height: 1px;
-  margin: 20px auto;
-  background: var(--gold);
-  box-shadow:
-    0 0 14px
-    rgba(217,184,121,0.35);
-}
-.description {
-  margin-bottom: 23px;
-}
-/* ================================
-   PHOTO SCENES
-================================ */
-.photo-content {
-  margin-top: -2px;
-}
-.photo-frame {
-  position: relative;
-  width: min(77vw, 300px);
-  height: min(55vh, 360px);
-  margin: 0 auto 18px;
-  padding: 7px;
-  background: #f2e7df;
-  box-shadow:
-    0 35px 80px
-    rgba(0,0,0,0.55);
-  transform:
-    rotate(-1.5deg)
-    translateY(12px);
-  opacity: 0;
-  transition:
-    opacity 0.9s ease 0.2s,
-    transform 1s
-    cubic-bezier(.22,1,.36,1);
-}
-.scene.active .photo-frame {
-  opacity: 1;
-  transform:
-    rotate(-1.5deg)
-    translateY(0);
-}
-.photo-frame.tilted {
-  transform:
-    rotate(2deg)
-    translateY(12px);
-}
-.scene.active .photo-frame.tilted {
-  transform:
-    rotate(2deg)
-    translateY(0);
-}
-.photo-frame img {
-  width: 100%;
+  left: -120%;
+  width: 70%;
   height: 100%;
-  display: block;
-  object-fit: cover;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.28),
+    transparent
+  );
+  transform: skewX(-20deg);
+  animation: buttonShine 4s ease-in-out infinite;
 }
-.photo-light {
-  position: absolute;
-  top: -45px;
-  right: -45px;
-  width: 120px;
-  height: 120px;
-  border-radius: 50%;
-  background:
-    rgba(217,184,121,0.16);
-  filter: blur(30px);
-  z-index: 4;
-  pointer-events: none;
+
+.celebrate-btn span {
+  position: relative;
+  z-index: 2;
 }
-.photo-label {
-  position: absolute;
-  left: 14px;
-  bottom: 14px;
-  z-index: 5;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  padding: 7px 10px;
-  border-left:
-    1px solid
-    var(--gold);
-  background:
-    rgba(18,11,16,0.78);
-  backdrop-filter:
-    blur(10px);
-  text-align: left;
-}
-.photo-label strong {
-  color: var(--gold);
-  font-size: 8px;
-  letter-spacing: 0.2em;
-}
-.photo-label span {
-  margin-top: 2px;
-  color: #eee2dc;
-  font-size: 8px;
-}
-.photo-title {
-  margin-bottom: 18px;
-  font-size:
-    clamp(31px, 8vw, 45px);
-  opacity: 0;
-  transform: translateY(12px);
-  transition:
-    opacity 0.7s ease 0.55s,
-    transform 0.8s ease 0.55s;
-}
-.scene.active .photo-title {
-  opacity: 1;
-  transform: translateY(0);
-}
-.photo-title em {
-  color: var(--rose-light);
-  font-weight: 400;
-}
-/* ================================
-   LETTER
-================================ */
-.letter-content {
-  max-width: 390px;
-}
-.letter-content h2 {
-  margin-bottom: 8px;
-  font-size:
-    clamp(43px, 11vw, 60px);
-}
-.letter-line {
-  width: 36px;
-  height: 1px;
-  margin: 14px auto 17px;
-  background: var(--gold);
-}
-.letter {
-  color: var(--soft);
-  font-family: var(--serif);
-  font-size:
-    clamp(14px, 4vw, 18px);
-  line-height: 1.3;
-}
-.letter p {
-  margin-bottom: 9px;
-}
-.letter .signature {
-  margin-top: 10px;
-  color: var(--rose-light);
-  font-style: italic;
-}
-/* ================================
-   FINAL SCENE
-================================ */
-.final-scene {
-  background:
-    radial-gradient(
-      circle at center,
-      #321a29 0%,
-      #1c1018 43%,
-      #120b10 80%
-    );
-}
-.final-orb {
-  position: absolute;
-  width: 290px;
-  height: 290px;
-  border-radius: 50%;
-  background:
-    radial-gradient(
-      circle,
-      rgba(217,184,121,0.16),
-      rgba(201,135,152,0.06) 42%,
-      transparent 70%
-    );
-  filter: blur(9px);
-  animation:
-    finalOrb 5s
-    ease-in-out
-    infinite;
-}
-@keyframes finalOrb {
+
+
+/* =====================================================
+   FINAL ANIMATIONS
+===================================================== */
+
+@keyframes finalPulse {
   0%,
   100% {
-    transform: scale(0.82);
-    opacity: 0.45;
+    transform: scale(1);
+    opacity: 0.65;
   }
+
   50% {
-    transform: scale(1.18);
+    transform: scale(2.2);
     opacity: 1;
   }
 }
-.final-content {
-  margin-top: -2px;
-}
-.final-star {
-  margin-bottom: 14px;
-  color: var(--gold);
-  font-size: 26px;
-  animation:
-    starPulse 2s ease-in-out infinite,
-    spinSlow 10s linear infinite;
-}
-@keyframes spinSlow {
-  to {
-    transform: rotate(360deg);
+
+@keyframes finalStarFloat {
+  0%,
+  100% {
+    transform: translateY(0) rotate(0deg);
+  }
+
+  50% {
+    transform: translateY(-8px) rotate(10deg);
   }
 }
-.final-content h2 {
-  font-size:
-    clamp(43px, 11vw, 63px);
+
+@keyframes finalStarGlow {
+  from {
+    text-shadow:
+      0 0 5px rgba(217, 184, 121, 0.3);
+  }
+
+  to {
+    text-shadow:
+      0 0 18px rgba(217, 184, 121, 0.9),
+      0 0 40px rgba(201, 135, 152, 0.45);
+  }
 }
-.cake {
-  margin: 18px 0 9px;
-  font-size: 46px;
-  filter:
-    drop-shadow(
-      0 12px 25px
-      rgba(201,135,152,0.25)
-    );
-  animation:
-    cakeFloat 3s
-    ease-in-out
-    infinite;
+
+@keyframes finalTextReveal {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+    filter: blur(8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+  }
 }
+
+@keyframes goldShimmer {
+  0% {
+    background-position: 0% center;
+  }
+
+  100% {
+    background-position: 300% center;
+  }
+}
+
 @keyframes cakeFloat {
+  0%,
+  100% {
+    transform: translateY(0) rotate(0deg);
+  }
+
+  50% {
+    transform: translateY(-7px) rotate(-2deg);
+  }
+}
+
+@keyframes cakeGlow {
+  from {
+    filter: drop-shadow(
+      0 0 3px rgba(217, 184, 121, 0.15)
+    );
+  }
+
+  to {
+    filter: drop-shadow(
+      0 0 18px rgba(217, 184, 121, 0.45)
+    );
+  }
+}
+
+@keyframes buttonFloat {
   0%,
   100% {
     transform: translateY(0);
   }
+
   50% {
-    transform: translateY(-8px);
+    transform: translateY(-3px);
   }
 }
-.final-text {
-  margin-bottom: 20px;
-}
-.celebrate-btn {
-  padding: 15px 22px;
-  border:
-    1px solid
-    rgba(217,184,121,0.55);
-  border-radius: 999px;
-  background:
-    linear-gradient(
-      100deg,
-      rgba(201,135,152,0.14),
-      rgba(217,184,121,0.09)
-    );
-  color: var(--cream);
-  font-size: 10px;
-  letter-spacing: 0.04em;
-  cursor: pointer;
-  box-shadow:
-    0 0 35px
-    rgba(217,184,121,0.05);
-  transition:
-    transform 0.25s ease,
-    box-shadow 0.3s ease;
-}
-.celebrate-btn span {
-  color: var(--rose-light);
-  margin-left: 7px;
-}
-.celebrate-btn:active {
-  transform: scale(0.95);
-}
-.celebrate-btn:hover {
-  box-shadow:
-    0 0 40px
-    rgba(217,184,121,0.15);
-}
-/* ================================
-   CELEBRATION
-================================ */
-.celebration {
-  position: fixed;
-  inset: 0;
-  z-index: 100;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 20px;
-  background:
-    radial-gradient(
-      circle at center,
-      rgba(61,30,48,0.98),
-      rgba(10,6,9,0.995) 72%
-    );
-  opacity: 0;
-  visibility: hidden;
-  transition:
-    opacity 0.8s ease,
-    visibility 0.8s ease;
-}
-.celebration.show {
-  opacity: 1;
-  visibility: visible;
-}
-.celebration-content {
-  position: relative;
-  z-index: 10;
-  width: min(100%, 390px);
-  text-align: center;
-  transform:
-    translateY(30px)
-    scale(0.94);
-  opacity: 0;
-  transition:
-    transform 0.9s
-    cubic-bezier(.22,1,.36,1),
-    opacity 0.7s ease;
-}
-.celebration.show .celebration-content {
-  transform:
-    translateY(0)
-    scale(1);
-  opacity: 1;
-}
-.celebration-star {
-  margin-bottom: 18px;
-  color: var(--gold);
-  font-size: 27px;
-  animation:
-    starPulse 1.5s ease-in-out infinite;
-}
-.celebration-content h2 {
-  font-size:
-    clamp(54px, 14vw, 78px);
-}
-.celebration-line {
-  width: 45px;
-  height: 1px;
-  margin: 21px auto;
-  background: var(--gold);
-}
-.celebration-content > p:not(.eyebrow) {
-  color: var(--soft);
-  font-family: var(--serif);
-  font-size: 17px;
-  line-height: 1.48;
-}
-.wish {
-  margin-top: 21px;
-  color: var(--gold);
-  font-family: var(--serif);
-  font-size: 22px;
-  font-style: italic;
-}
-#closeCelebration {
-  margin-top: 24px;
-  border: 0;
-  background: transparent;
-  color: var(--muted);
-  font-size: 9px;
-  letter-spacing: 0.14em;
-  cursor: pointer;
-}
-/* ================================
-   STARS
-================================ */
-.stars {
-  position: absolute;
-  inset: 0;
-  overflow: hidden;
-}
-.star {
-  position: absolute;
-  width: 3px;
-  height: 3px;
-  border-radius: 50%;
-  background: white;
-  box-shadow:
-    0 0 10px
-    rgba(255,255,255,0.8);
-  animation:
-    starBlink 2s ease-in-out infinite;
-}
-@keyframes starBlink {
+
+@keyframes buttonShine {
   0%,
-  100% {
-    opacity: 0.15;
-    transform: scale(0.5);
+  55% {
+    left: -120%;
   }
-  50% {
-    opacity: 1;
-    transform: scale(1.5);
+
+  75%,
+  100% {
+    left: 140%;
   }
 }
-/* ================================
-   CONFETTI
-================================ */
-.confetti {
-  position: absolute;
-  top: -20px;
-  color: var(--gold);
-  font-size: 13px;
+
+
+/* =====================================================
+   CELEBRATION OVERLAY — BIG FINISH
+===================================================== */
+
+.celebration.show {
+  animation: celebrationIn 1s ease both;
+}
+
+.celebration.show .celebration-content {
+  animation: celebrationContentIn 1.2s ease 0.15s both;
+}
+
+.celebration-star {
   animation:
-    confettiFall
-    linear
-    forwards;
+    finalStarFloat 2.5s ease-in-out infinite,
+    finalStarGlow 2s ease-in-out infinite alternate;
 }
-@keyframes confettiFall {
-  0% {
-    transform:
-      translateY(-20px)
-      rotate(0deg);
-    opacity: 1;
-  }
-  100% {
-    transform:
-      translateY(110vh)
-      rotate(720deg);
+
+.celebration-content h2 span {
+  background: linear-gradient(
+    120deg,
+    #d9b879,
+    #fffaf7,
+    #e7adb9,
+    #d9b879
+  );
+  background-size: 300% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: goldShimmer 4s linear infinite;
+}
+
+@keyframes celebrationIn {
+  from {
     opacity: 0;
   }
-}
-/* ================================
-   SMALL PHONES
-================================ */
-@media (max-width: 500px) {
-  .scene {
-    padding:
-      20px
-      17px
-      35px;
-  }
-  .eyebrow {
-    font-size: 7.5px;
-    letter-spacing: 0.28em;
-  }
-  .envelope-wrap {
-    margin-top: 22px;
-    margin-bottom: 18px;
-  }
-  .envelope {
-    width: 140px;
-    height: 84px;
-  }
-  .primary-btn {
-    min-width: 168px;
-    padding: 13px 18px;
-  }
-  .number {
-    font-size: 125px;
-  }
-  .reveal-content h2 {
-    font-size: 43px;
-  }
-  .photo-frame {
-    width: min(77vw, 285px);
-    height: min(52vh, 340px);
-  }
-  .photo-title {
-    font-size: 31px;
-  }
-  .letter {
-    font-size: 14px;
-    line-height: 1.27;
-  }
-  .letter p {
-    margin-bottom: 7px;
-  }
-  .final-content h2 {
-    font-size: 43px;
-  }
-  .cake {
-    font-size: 42px;
-    margin: 15px 0 7px;
-  }
-  .final-text {
-    font-size: 11px;
-    margin-bottom: 17px;
-  }
-  .celebrate-btn {
-    padding: 14px 19px;
-    font-size: 9.5px;
-  }
-  .celebration-content h2 {
-    font-size: 54px;
+
+  to {
+    opacity: 1;
   }
 }
-/* ================================
-   SHORT SCREENS
-================================ */
+
+@keyframes celebrationContentIn {
+  from {
+    opacity: 0;
+    transform: scale(0.92) translateY(20px);
+    filter: blur(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+    filter: blur(0);
+  }
+}
+
+
+/* =====================================================
+   MOBILE SAFETY
+===================================================== */
+
 @media (max-height: 700px) {
-  .scene {
-    padding-top: 12px;
-    padding-bottom: 30px;
-  }
-  .envelope-wrap {
-    height: 78px;
-    margin: 14px auto;
-  }
-  .envelope {
-    transform: scale(0.82);
-  }
-  .photo-frame {
-    height: 44vh;
-  }
-  .photo-title {
-    margin-bottom: 10px;
-  }
-  .letter {
-    font-size: 13px;
-    line-height: 1.23;
-  }
-  .letter p {
-    margin-bottom: 5px;
-  }
-  .cake {
-    margin: 9px 0 4px;
-  }
-  .final-text {
-    margin-bottom: 11px;
-  }
-}
-/* ================================
-   REDUCED MOTION
-================================ */
-@media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-  }
-}
-/* Envelope opening animation */
-.envelope {
-  perspective: 600px;
-}
 
-.envelope.opening {
-  animation: none;
-}
+  .final-content {
+    transform: scale(0.92);
+  }
 
-.envelope.opening .envelope-flap {
-  transform: rotateX(180deg);
-}
+  .celebration-content {
+    transform: scale(0.92);
+  }
 
-.envelope.opening .envelope-front span {
-  opacity: 0;
-  transition: opacity 0.25s ease;
 }
-
