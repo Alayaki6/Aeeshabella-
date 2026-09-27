@@ -1,51 +1,68 @@
-/* =========================================
-   AEESHA — BIRTHDAY EXPERIENCE
-   September 27
-========================================= */
+/* =====================================================
+   AEESHA — SEPTEMBER 27
+   Cinematic Birthday Experience
+===================================================== */
 const scenes = document.querySelectorAll(".scene");
 const nextButtons = document.querySelectorAll("[data-next]");
 const celebration = document.getElementById("celebration");
 const celebrateBtn = document.getElementById("celebrateBtn");
 const closeCelebration = document.getElementById("closeCelebration");
 let currentScene = 0;
-let isMoving = false;
-/* =========================================
+let moving = false;
+/* =====================================================
    SCENE NAVIGATION
-========================================= */
+===================================================== */
 function showScene(index) {
   if (
     index < 0 ||
     index >= scenes.length ||
     index === currentScene ||
-    isMoving
+    moving
   ) {
     return;
   }
-  isMoving = true;
-  scenes[currentScene].classList.remove("active");
-  setTimeout(() => {
-    scenes[index].classList.add("active");
+  moving = true;
+  const current = scenes[currentScene];
+  const next = scenes[index];
+  current.classList.remove("active");
+  window.setTimeout(() => {
+    next.classList.add("active");
     currentScene = index;
-    setTimeout(() => {
-      isMoving = false;
-    }, 700);
-  }, 120);
+    window.setTimeout(() => {
+      moving = false;
+    }, 650);
+  }, 180);
 }
-/* =========================================
+/* =====================================================
    BUTTON NAVIGATION
-========================================= */
+===================================================== */
 nextButtons.forEach((button) => {
   button.addEventListener("click", () => {
     const target = Number(button.dataset.next);
     if (Number.isNaN(target)) {
       return;
     }
+    /*
+      Small envelope interaction before
+      moving from the opening scene.
+    */
+    if (currentScene === 0) {
+      const envelope =
+        document.querySelector(".envelope");
+      if (envelope) {
+        envelope.classList.add("opening");
+        window.setTimeout(() => {
+          showScene(target - 1);
+        }, 430);
+        return;
+      }
+    }
     showScene(target - 1);
   });
 });
-/* =========================================
-   KEYBOARD NAVIGATION
-========================================= */
+/* =====================================================
+   KEYBOARD
+===================================================== */
 document.addEventListener("keydown", (event) => {
   if (event.key === "ArrowRight") {
     showScene(currentScene + 1);
@@ -53,12 +70,20 @@ document.addEventListener("keydown", (event) => {
   if (event.key === "ArrowLeft") {
     showScene(currentScene - 1);
   }
+  if (event.key === "Escape") {
+    if (
+      celebration &&
+      celebration.classList.contains("show")
+    ) {
+      closeCelebrationScreen();
+    }
+  }
 });
-/* =========================================
-   SWIPE NAVIGATION
-========================================= */
-let startX = 0;
-let startY = 0;
+/* =====================================================
+   SWIPE
+===================================================== */
+let touchStartX = 0;
+let touchStartY = 0;
 document.addEventListener(
   "touchstart",
   (event) => {
@@ -66,8 +91,8 @@ document.addEventListener(
     if (!touch) {
       return;
     }
-    startX = touch.clientX;
-    startY = touch.clientY;
+    touchStartX = touch.clientX;
+    touchStartY = touch.clientY;
   },
   {
     passive: true
@@ -80,19 +105,21 @@ document.addEventListener(
     if (!touch) {
       return;
     }
-    const endX = touch.clientX;
-    const endY = touch.clientY;
-    const distanceX = endX - startX;
-    const distanceY = endY - startY;
-    /* Ignore vertical gestures */
+    const distanceX =
+      touch.clientX - touchStartX;
+    const distanceY =
+      touch.clientY - touchStartY;
+    /* Ignore vertical swipes */
     if (
       Math.abs(distanceY) >
       Math.abs(distanceX)
     ) {
       return;
     }
-    /* Ignore tiny swipes */
-    if (Math.abs(distanceX) < 60) {
+    /* Ignore tiny movement */
+    if (
+      Math.abs(distanceX) < 60
+    ) {
       return;
     }
     if (distanceX < 0) {
@@ -105,33 +132,34 @@ document.addEventListener(
     passive: true
   }
 );
-/* =========================================
+/* =====================================================
    FLOATING PARTICLES
-========================================= */
+===================================================== */
 const particleContainer =
   document.querySelector(".particles");
 function createParticles() {
   if (!particleContainer) {
     return;
   }
-  for (let i = 0; i < 32; i++) {
+  for (let i = 0; i < 34; i++) {
     const particle =
       document.createElement("span");
-    particle.className = "particle";
+    particle.className =
+      "particle";
     const size =
-      Math.random() * 3 + 1;
-    const position =
+      Math.random() * 2.5 + 1;
+    const left =
       Math.random() * 100;
     const duration =
-      Math.random() * 8 + 8;
+      Math.random() * 9 + 8;
     const delay =
-      Math.random() * 8;
+      Math.random() * 9;
     particle.style.width =
       `${size}px`;
     particle.style.height =
       `${size}px`;
     particle.style.left =
-      `${position}%`;
+      `${left}%`;
     particle.style.animationDuration =
       `${duration}s`;
     particle.style.animationDelay =
@@ -142,18 +170,24 @@ function createParticles() {
   }
 }
 createParticles();
-/* =========================================
-   FINAL CELEBRATION
-========================================= */
+/* =====================================================
+   CELEBRATION
+===================================================== */
 function openCelebration() {
   if (!celebration) {
     return;
   }
-  celebration.classList.add("show");
   createStars();
   createConfetti();
+  /*
+    Tiny delay makes the final reveal
+    feel intentional instead of instant.
+  */
+  requestAnimationFrame(() => {
+    celebration.classList.add("show");
+  });
 }
-function closeCelebrationModal() {
+function closeCelebrationScreen() {
   if (!celebration) {
     return;
   }
@@ -167,11 +201,11 @@ celebrateBtn?.addEventListener(
 );
 closeCelebration?.addEventListener(
   "click",
-  closeCelebrationModal
+  closeCelebrationScreen
 );
-/* =========================================
+/* =====================================================
    STARS
-========================================= */
+===================================================== */
 const starsContainer =
   document.getElementById("stars");
 function createStars() {
@@ -179,16 +213,28 @@ function createStars() {
     return;
   }
   clearStars();
-  for (let i = 0; i < 55; i++) {
+  const starCount = 60;
+  for (
+    let i = 0;
+    i < starCount;
+    i++
+  ) {
     const star =
       document.createElement("span");
-    star.className = "star";
+    star.className =
+      "star";
     star.style.left =
       `${Math.random() * 100}%`;
     star.style.top =
       `${Math.random() * 100}%`;
     star.style.animationDelay =
-      `${Math.random() * 2}s`;
+      `${Math.random() * 2.5}s`;
+    const size =
+      Math.random() * 3 + 1;
+    star.style.width =
+      `${size}px`;
+    star.style.height =
+      `${size}px`;
     starsContainer.appendChild(
       star
     );
@@ -200,9 +246,9 @@ function clearStars() {
   }
   starsContainer.innerHTML = "";
 }
-/* =========================================
+/* =====================================================
    CONFETTI
-========================================= */
+===================================================== */
 const confettiContainer =
   document.getElementById("confetti");
 function createConfetti() {
@@ -218,10 +264,15 @@ function createConfetti() {
     "•",
     "⋆"
   ];
-  for (let i = 100; i > 0; i--) {
+  for (
+    let i = 0;
+    i < 100;
+    i++
+  ) {
     const piece =
       document.createElement("span");
-    piece.className = "confetti";
+    piece.className =
+      "confetti";
     piece.textContent =
       symbols[
         Math.floor(
@@ -234,7 +285,7 @@ function createConfetti() {
     piece.style.animationDelay =
       `${Math.random() * 1.8}s`;
     piece.style.animationDuration =
-      `${Math.random() * 2 + 3}s`;
+      `${Math.random() * 2.5 + 3}s`;
     confettiContainer.appendChild(
       piece
     );
@@ -246,37 +297,31 @@ function clearConfetti() {
   }
   confettiContainer.innerHTML = "";
 }
-/* =========================================
+/* =====================================================
    INITIAL STATE
-========================================= */
-scenes.forEach((scene, index) => {
-  scene.classList.toggle(
-    "active",
-    index === 0
-  );
-});
-/* =========================================
-   CONSOLE
-========================================= */
+===================================================== */
+scenes.forEach(
+  (scene, index) => {
+    scene.classList.toggle(
+      "active",
+      index === 0
+    );
+  }
+);
+/* =====================================================
+   FINAL MESSAGE
+===================================================== */
 console.log(
-  "✨ Aeesha's birthday experience is ready."
+  "✨ A little world made for Aeesha."
 );
 console.log(
   "♡ September 27 ♡"
 );
 
-Now the structure is simply:
+One important thing
 
-aeesha-birthday/
-│
-├── index.html
-├── style.css
-├── script.js
-│
-└── pictures/
-    ├── IMG_4719.jpeg
-    └── IMG_5797.jpeg
+The upgraded JavaScript adds an .opening class to the envelope, but the CSS doesn’t currently define that animation. Don’t worry about it yet—the site will still work.
 
-No TypeScript. No build command. No dist.
+Once you’ve pasted this, say Done.
 
-Once you’ve pasted script.js, say Done. Then we’ll do a quick GitHub/Netlify check so the live site actually loads this version.
+Then we’ll do one final tiny CSS addition for the envelope-opening effect, and after that you can refresh Netlify.
