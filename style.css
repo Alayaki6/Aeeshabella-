@@ -955,7 +955,21 @@ h2 span {
     transition-duration: 0.01ms !important;
   }
 }
+/* Envelope opening animation */
+.envelope {
+  perspective: 600px;
+}
 
-After pasting it, don’t test or change anything else yet.
+.envelope.opening {
+  animation: none;
+}
 
-Tell me Done. Then I’ll upgrade the script.js to make the interactions match the new cinematic styling.
+.envelope.opening .envelope-flap {
+  transform: rotateX(180deg);
+}
+
+.envelope.opening .envelope-front span {
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+
